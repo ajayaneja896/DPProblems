@@ -1,0 +1,55 @@
+//-------------------------------------------------0-1 knapsack problen-----------------------------------------------------------------------------------------//
+#include<bits/stdc++.h>
+#define scan(n) scanf("%d",&n)
+#define scanll(n) scanf("%lld",&n)
+#define For(i,a,b) for(i=a;i<b;i++)
+#define fill(a,b) memset(a,b,sizeof(a))
+#define ll long long int
+#define MAX 1000000007
+using namespace std;
+int main()
+{
+	// maximum profit int the given weigth of the array--------//
+	//---- num is the  number of the of the elements ---//
+	int num;
+	scan(num);
+	//wt is the max weigth allowed --------//
+	int wt;
+	scan(wt);
+	// w is the array of weights of the items that can be enterd in the knapsack
+	// p is the array of profits of the items that can be enterd int knapsack
+	int  w[num+1];
+	int p[num+1];
+	int i,j;
+	For(i,0,num)
+	{
+		scan(w[i]);
+		scan(p[i]);
+	}
+	//dp[i][j]  give us the  max profit with wt j weight and  i items
+	int dp[num+1][wt+1];
+	For(i,0,num+1)
+	{
+		// max profit with 0 weigth is 0 no matters how many items
+		dp[i][0]=0;
+		
+	
+	}
+	For(i,0,wt+1)
+	{
+		// max  profit with 0 items is 0 no matter how  much weigth  allowed
+		dp[0][i]=0;
+	}
+	For(i,1,num+1)
+	{
+		For(j,1,wt+1)
+		{
+			if(j-w[i]>=0)
+			dp[i][j]=max(dp[i-1][j],dp[i-1][j-w[i]]+p[i]);
+			else
+			dp[i][j]=dp[i-1][j];
+		}
+	}
+	cout<<dp[num][wt]<<endl;
+ 	return 0;
+}
